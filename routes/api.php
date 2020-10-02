@@ -21,3 +21,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('books','BookController');
 Route::resource("authors", "AuthorController");
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+    Route::post('login', 'AuthController@login');
+    Route::post('register', 'AuthController@register');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::get('user-profile', 'AuthController@userProfile');
+});
